@@ -1,0 +1,63 @@
+I don't have anything to code today. I decided to do this at 3am after working 16 hours to get a part of a suddenly reinstated project
+done in the shockingly short amount of time they gave me to adjust to 30 new requirements. -_- 
+I love my job and rising to the ridiculous challenges they give me. 
+
+It's 9:30 pm on that same day so technically it's still decision day.
+Last night (this morning?) I was trying to decide what language to learn. 
+I did a little c++ and hated it.
+I did a little Javascript and found it to be more fun to play with.
+The difference was probably the teachers I had. 
+
+I want to learn more about matlab after being inspired by a very enthusiastic guy at work, but it seems very math intensive and match is a
+language I do not speak very well. If math were a method of communication, I would be the person continually apologizing for their
+poor grammerand syntax but accidently insulting your grandma's french poodle instead. 
+
+I wanted something that was usefull to me now and in the future and right now, in the job that I love so much, that would be powershell. 
+
+While that is not coding in the strictest sense, it follows a lot of the same rules and patterns and is used so widely that I would be
+doing myself a disservice if I did not make the effort to build that into my arsenal of skills. I also want to automate parts of my job so I 
+have time to do more interesting things instead of chasing down laptops and doing data entry. 
+
+Oh! 
+I did forget that I pulled out a batch file and tweaked it to meet my needs in the moment. I mess with this file a lot.
+It does a robocopy of a users folder and from a specific computer and creates a new folder for them in a server that we have for 
+just such purposes. I often change it to go from one computer to another or from the server back to a freshly reimaged computer. 
+
+That is what I used it for today and I'm watching the files scroll by right now. 
+
+All 500 gigs of data just rolling up my screen in magenta text on a black background. 
+it's very relaxing to watch. 
+
+Anyway, here's the script that I didn't write but alter on a regular basis. 
+
+
+@echo off
+CLS
+echo Remember to run as admin, and to have admin on the two computers
+
+
+:: This script prompts a user for info to plug into the cmd prompt's robocopy function
+:: Does not grant admin rights to any computers, which isn't necessary for robocopy
+:: But admin will be needed to see the results in action
+
+set /p node="Source Computer Name: "
+set /p ntid="User NTID: "
+
+set source="\\%node%\C$\Users\%ntid%"
+set destination="\\server.fqdn.com\backups\%ntid%"
+set options="/E /SEC /R:1 /W:1 /XJ /LOG:C:\RoboLog.txt /TEE"
+
+echo -----------------------------------
+echo Source is %source%
+echo:
+echo Destination is %destination%
+echo:
+echo Options are %options%
+echo -----------------------------------
+
+echo Is the above information correct^?
+pause
+
+robocopy.exe "%source%" "%destination%" "%options%"
+
+pause
